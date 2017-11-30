@@ -73,6 +73,30 @@ class RootViewController: UITableViewController {
         
     }
 
+     // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+        let listVC = segue.destination as! FontListViewController
+        
+        if indexPath.section == 0 {
+            let familyName = familyNames[indexPath.row]
+            listVC.fontNames = (UIFont.fontNames(forFamilyName: familyName) as [String]).sorted()
+            listVC.navigationItem.title = familyName
+            listVC.showsFavourites = false
+        } else {
+            listVC.fontNames = favouritesList.favourites
+            listVC.navigationItem.title = "Favourites"
+            listVC.showsFavourites = true
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
   
 
 }
